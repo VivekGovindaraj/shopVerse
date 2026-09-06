@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useTransition } from 'react';
 
-const API_URL = `http://localhost:4000/api`;
+const API_URL = `https://shopverse-76q1.onrender.com/api`;
 
  const api = axios.create({
     baseURL:API_URL
