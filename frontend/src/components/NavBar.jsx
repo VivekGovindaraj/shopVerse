@@ -321,7 +321,7 @@ const NavBar = () => {
 
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-[0_-4px_15px_rgba(0,0,0,0.08)]">
 
-        <div className="grid grid-cols-4 h-16">
+        <div className={`grid ${user?.isAdmin ? "grid-cols-4" : "grid-cols-3"} h-16`}>
 
           {/* PRODUCTS */}
 

@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
-// import LoadingSpinner from "../components/LoadingSpinner";
+
 import { showError } from '../Utils/toast.js';
+import { ProductSkeleton } from "../components/LoaderUI.jsx";
 
 const statusColors = {
   Pending: "bg-slate-100 text-slate-700",
@@ -73,7 +74,18 @@ const OrdersPage = () => {
     return result
   }, [orders, search, orderStatus])
 
-  if (loading) return <div>Loading...</div>;
+  if (loading){
+     return(
+     <>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-10">
+      {
+        [...Array(8)].map((_, i) => (
+          <ProductSkeleton key={i} />
+        ))
+      }
+    </div>
+     </>)
+  } ;
 
   return (
     <div className="container mx-auto px-4 py-8 sm:py-12">
@@ -188,7 +200,7 @@ const OrdersPage = () => {
                 ))}
               </div>
             </div>
-          ))}
+          )).sort()}
 
           
         </div>

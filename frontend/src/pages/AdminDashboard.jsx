@@ -351,8 +351,8 @@
                           <div className="flex items-center gap-3">
                             <img
                               // src={product.images?.[0]?.url}
-                              src={product.image}
-                              alt={product.name}
+                              src={product?.image}
+                              alt={product?.name}
                               className="w-12 h-12 rounded-lg object-cover"
                             />
                             <div>
@@ -406,7 +406,7 @@
                         <div className="flex items-center gap-4">
 
                             <img
-                              src={product.images}
+                              src={product?.image}
                               // src={product.images?.[0]?.url}
                               alt={product.name}
                               className="w-16 h-16 rounded-xl object-cover flex-shrink-0"
