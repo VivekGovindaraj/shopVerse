@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   FaBars,
   FaTimes,
@@ -32,6 +32,27 @@ const NavBar = () => {
     navigate("/login");
   };
 
+  const bottomNavClass = ({ isActive }) =>
+  `flex flex-col items-center justify-center transition rounded-xl ${
+    isActive
+      ? "text-indigo-600 bg-indigo-50 font-semibold"
+      : "text-slate-600 hover:text-indigo-600"
+  }`;
+
+
+const topBarActive = ({ isActive }) =>
+  `transition font-medium ${
+    isActive
+      ? "bg-white/10 text-white-700 px-3 py-2 rounded-xl"
+      : "hover:text-indigo-200"
+  }`;
+
+  const offBar = ({isActive}) => 
+    `flex items-center gap-4 px-4 py-3 rounded-xl font-medium
+     ${isActive 
+      ? "bg-indigo-50 text-indigo-700" :
+       "hover:bg-indigo-50 hover:text-indigo-700 transition "}`
+
   return (
     <>
       {/* DESKTOP + MOBILE TOP NAVBAR */}
@@ -43,52 +64,56 @@ const NavBar = () => {
 
             {/* LOGO */}
 
-            <Link
+            <NavLink
               to="/"
               onClick={closeMenu}
               className="text-xl sm:text-2xl font-bold tracking-tight"
             >
               Shop<span className="text-amber-300">Verse</span>
-            </Link>
+            </NavLink>
 
             {/* DESKTOP NAV */}
 
             <div className="hidden md:flex items-center gap-8">
 
-              <Link
+              <NavLink
                 to="/"
-                className="hover:text-indigo-200 transition font-medium"
+                className={topBarActive}
               >
                 Products
-              </Link>
+              </NavLink>
 
-              <Link
+              <NavLink
                 to="/cart"
-                className="relative hover:text-indigo-200 transition font-medium"
+                className={topBarActive}
               >
+                <div className="relative">
+
+                
                 Cart
 
                 <span className="absolute -top-2 -right-4 bg-amber-400 text-slate-900 text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
                   {getTotalItems()}
                 </span>
-              </Link>
+                </div>
+              </NavLink>
 
               {user && (
-                <Link
+                <NavLink
                   to="/orders"
-                  className="hover:text-indigo-200 transition font-medium"
+                   className={topBarActive}
                 >
                   My Orders
-                </Link>
+                </NavLink>
               )}
 
               {user?.isAdmin && (
-                <Link
+                <NavLink
                   to="/adminDashboard"
-                  className="hover:text-indigo-200 transition font-medium"
+                  className={topBarActive}
                 >
                   Admin
-                </Link>
+                </NavLink>
               )}
             </div>
 
@@ -111,19 +136,19 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  <Link
+                  <NavLink
                     to="/login"
                     className="px-4 py-2 hover:bg-white/10 rounded-xl text-sm font-medium transition"
                   >
                     Login
-                  </Link>
+                  </NavLink>
 
-                  <Link
+                  <NavLink
                     to="/register"
                     className="px-4 py-2 bg-white text-indigo-700 hover:bg-indigo-50 rounded-xl text-sm font-semibold transition"
                   >
                     Sign Up
-                  </Link>
+                  </NavLink>
                 </>
               )}
             </div>
@@ -170,13 +195,13 @@ const NavBar = () => {
 
         <div className="h-16 bg-indigo-700 text-white px-5 flex items-center justify-between">
 
-          <Link
+          <NavLink
             to="/"
             onClick={closeMenu}
             className="text-xl font-bold"
           >
             Shop<span className="text-amber-300">Verse</span>
-          </Link>
+          </NavLink>
 
           <button
             onClick={closeMenu}
@@ -216,25 +241,24 @@ const NavBar = () => {
         )}
 
 
-        {/* MOBILE MENU LINKS */}
+        {/* MOBILE MENU NavLinkS */}
 
         <div className="p-4 space-y-2">
 
-          <Link
+          <NavLink
             to="/"
             onClick={closeMenu}
-            className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-700 transition font-medium"
-          >
+          className={offBar}
+  >
             <FaHome className="w-5 h-5" />
             Products
-          </Link>
+          </NavLink>
 
 
-          <Link
+          <NavLink
             to="/cart"
             onClick={closeMenu}
-            className="flex items-center justify-between px-4 py-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-700 transition font-medium"
-          >
+            className={offBar}          >
 
             <div className="flex items-center gap-4">
               <FaShoppingCart className="w-5 h-5" />
@@ -245,30 +269,28 @@ const NavBar = () => {
               {getTotalItems()}
             </span>
 
-          </Link>
+          </NavLink>
 
 
           {user && (
-            <Link
+            <NavLink
               to="/orders"
               onClick={closeMenu}
-              className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-700 transition font-medium"
-            >
+            className={offBar}              >
               <FaBoxOpen className="w-5 h-5" />
               My Orders
-            </Link>
+            </NavLink>
           )}
 
 
           {user?.isAdmin && (
-            <Link
+            <NavLink
               to="/adminDashboard"
               onClick={closeMenu}
-              className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-indigo-50 hover:text-indigo-700 transition font-medium"
-            >
+className={offBar}            >
               <FaUserShield className="w-5 h-5" />
               Admin
-            </Link>
+            </NavLink>
           )}
 
         </div>
@@ -292,21 +314,21 @@ const NavBar = () => {
 
             <div className="space-y-2">
 
-              <Link
+              <NavLink
                 to="/login"
                 onClick={closeMenu}
                 className="w-full flex items-center justify-center px-4 py-3 border border-indigo-200 text-indigo-700 rounded-xl font-medium hover:bg-indigo-50 transition"
               >
                 Login
-              </Link>
+              </NavLink>
 
-              <Link
+              <NavLink
                 to="/register"
                 onClick={closeMenu}
                 className="w-full flex items-center justify-center px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium transition"
               >
                 Sign Up
-              </Link>
+              </NavLink>
 
             </div>
 
@@ -325,24 +347,23 @@ const NavBar = () => {
 
           {/* PRODUCTS */}
 
-          <Link
+          <NavLink
             to="/"
-            className="flex flex-col items-center justify-center text-slate-600 hover:text-indigo-600 transition"
+            className={bottomNavClass}
           >
             <FaHome className="w-5 h-5 mb-1" />
 
             <span className="text-[11px] font-medium">
               Products
             </span>
-          </Link>
+          </NavLink>
 
 
           {/* CART */}
 
-          <Link
+          <NavLink
             to="/cart"
-            className="relative flex flex-col items-center justify-center text-slate-600 hover:text-indigo-600 transition"
-          >
+            className={bottomNavClass}          >
 
             <div className="relative">
 
@@ -358,48 +379,45 @@ const NavBar = () => {
               Cart
             </span>
 
-          </Link>
+          </NavLink>
 
             {user?.isAdmin && (
-              <Link
+              <NavLink
                 to="/adminDashboard"
-                className="flex flex-col items-center justify-center text-slate-600 hover:text-indigo-600 transition"
-              >
+              className={bottomNavClass}              >
                 <FaUser className="w-5 h-5 mb-1" />
 
                 <span className="text-[11px] font-medium">
                   Admin 
                 </span>
-              </Link>
+              </NavLink>
               )}
 
           {/* ORDERS / ACCOUNT */}
 
           {user ? (
 
-            <Link
+            <NavLink
               to="/orders"
-              className="flex flex-col items-center justify-center text-slate-600 hover:text-indigo-600 transition"
-            >
+className={bottomNavClass}            >
               <FaBoxOpen className="w-5 h-5 mb-1" />
 
               <span className="text-[11px] font-medium">
                 Orders
               </span>
-            </Link>
+            </NavLink>
 
           ) : (
 
-            <Link
+            <NavLink
               to="/login"
-              className="flex flex-col items-center justify-center text-slate-600 hover:text-indigo-600 transition"
-            >
+className={bottomNavClass}               >
               <FaUser className="w-5 h-5 mb-1" />
 
               <span className="text-[11px] font-medium">
                 Login
               </span>
-            </Link>
+            </NavLink>
 
           )}
 

@@ -34,7 +34,7 @@ const Home = () => {
   }
 
   const categories = useMemo(() => {
-      const cats = [...new Set((products.map((product) => product.category).filter(Boolean)))]
+      const cats = [...new Set((products?.map((product) => product.category).filter(Boolean)))]
 
       return ["all", ...cats]
   }, [products])
